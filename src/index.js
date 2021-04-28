@@ -47,11 +47,12 @@ class Game extends React.Component {
                 location: {
                     row: 0,
                     col: 0
-                }
+                },
             }],
             stepNumber: 0,
             xIsNext: true,
-            isCurrent: true
+            isCurrent: true,
+            isToggle: true,
         };
     }
 
@@ -69,11 +70,18 @@ class Game extends React.Component {
                 location: {
                     row: i % 3,
                     col: Math.trunc(i / 3)
-                }
+                },
+                index: current.index + 1
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
         });
+    }
+
+    handleToggleClick() {
+        this.setState({
+            isToggle: !this.state.isToggle
+        })
     }
 
     jumpTo(step) {
@@ -91,6 +99,7 @@ class Game extends React.Component {
             const desc = move ?
                 'Go to move #' + move + `(${step.location.col}, ${step.location.row})` :
                 'Go to game start';
+
             return (
                 <li key={move}>
                     <button
@@ -119,7 +128,8 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{ status }</div>
-                    <ol>{ moves }</ol>
+                    <p><button onClick={() => this.handleToggleClick()}>toggle</button></p>
+                    <ol>{ this.state.isToggle ? moves : moves.reverse() }</ol>
                 </div>
             </div>
         );
