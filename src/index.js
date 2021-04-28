@@ -71,7 +71,6 @@ class Game extends React.Component {
                     row: i % 3,
                     col: Math.trunc(i / 3)
                 },
-                index: current.index + 1
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -99,7 +98,6 @@ class Game extends React.Component {
             const desc = move ?
                 'Go to move #' + move + `(${step.location.col}, ${step.location.row})` :
                 'Go to game start';
-
             return (
                 <li key={move}>
                     <button
